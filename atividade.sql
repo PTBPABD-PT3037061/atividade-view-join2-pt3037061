@@ -1,8 +1,6 @@
--- ==============================================================================
 -- Questão 1
--- Lista de instrutores (ID, nome) e o número de secções ministradas.
--- Utiliza LEFT OUTER JOIN para incluir instrutores sem secções (contagem = 0).
--- ==============================================================================
+-- Gere uma lista de todos os instrutores, mostrando sua ID, nome e número de seções que eles ministraram. Não se esqueça de mostrar o número de seções como 0 
+-- para os instrutores que não ministraram qualquer seção. Sua consulta deverá utilizar outer join e não deverá utilizar subconsultas escalares.
 SELECT 
     i.ID, 
     i.name, 
@@ -16,10 +14,9 @@ GROUP BY
     i.name;
 
 
--- ==============================================================================
 -- Questão 2
--- Mesma lista da Questão 1, mas utilizando uma subconsulta escalar.
--- ==============================================================================
+-- Escreva a mesma consulta do item anterior, mas usando uma subconsulta escalar, sem outer join.
+
 SELECT 
     i.ID, 
     i.name, 
@@ -30,11 +27,11 @@ FROM
     instructor i;
 
 
--- ==============================================================================
 -- Questão 3
--- Lista de todas as secções oferecidas na primavera (Spring) de 2010.
--- Se não houver instrutor, a função COALESCE garante que é devolvido "-".
--- ==============================================================================
+-- Gere a lista de todas as seções de curso oferecidas na primavera de 2010, junto com o nome dos
+-- instrutores ministrando a seção. Se uma seção tiver mais de 1 instrutor, ela deverá aparecer
+-- uma vez no resultado para cada instrutor. Se não tiver instrutor algum, ela ainda deverá
+-- aparecer no resultado, com o nome do instrutor definido como “-”.
 SELECT 
     s.course_id, 
     s.sec_id, 
@@ -56,12 +53,15 @@ WHERE
     AND s.year = 2010;
 
 
--- ==============================================================================
 -- Questão 4
--- Simula o comportamento do NATURAL JOIN que gerou a imagem de gabarito,
--- filtrando apenas os cursos que são do mesmo departamento do aluno
--- (AND s.dept_name = c.dept_name).
--- ==============================================================================
+-- Suponha que você tenha recebido uma relação grade_points (grade, points), que oferece uma 
+-- conversão de conceitos (letras) na relação takes para notas numéricas; por exemplo, uma 
+-- nota “A+” poderia ser especificada para corresponder a 4 pontos, um “A” para 3,7 pontos,
+-- e “A-” para 3,4, e “B+” para 3,1 pontos, e assim por diante. 
+-- Os Pontos totais obtidos por um aluno para uma oferta de curso (section) são definidos
+-- como o número de créditos para o curso multiplicado pelos pontos numéricos para a nota que o aluno recebeu.
+-- Dada essa relação e o nosso esquema university, escreva: 
+-- Ache os pontos totais recebidos por aluno, para todos os cursos realizados por ele.
 SELECT 
     s.ID, 
     s.name, 
@@ -96,11 +96,8 @@ ORDER BY
     s.ID;
 
 
--- ==============================================================================
 -- Questão 5
--- Criação da view baseada na consulta da Questão 4, com a mesma regra de
--- departamento. (Views no SQL Server não aceitam ORDER BY, por isso foi omitido).
--- ==============================================================================
+-- Crie uma view a partir do resultado da Questão 4 com o nome “coeficiente_rendimento”.
 CREATE VIEW coeficiente_rendimento AS
 SELECT 
     s.ID, 
